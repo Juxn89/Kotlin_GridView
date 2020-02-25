@@ -1,13 +1,12 @@
 package com.example.gridview
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 
 class AdaptadorCustom(var context: Context, items:ArrayList<Fruta>): BaseAdapter() {
     var items:ArrayList<Fruta>? = null
@@ -31,6 +30,13 @@ class AdaptadorCustom(var context: Context, items:ArrayList<Fruta>): BaseAdapter
         val item = items?.get(position) as? Fruta
         holder?.nombre?.text = item?.nombre
         holder?.imagen?.setImageResource(item?.imagen!!)
+        holder?.boton?.setOnClickListener {
+            Toast.makeText(context, "El botón dice: ${item?.nombre}", Toast.LENGTH_LONG).show()
+        }
+
+        if ( (position + 1) % 2 == 0) {
+            holder?.contendor?.setBackgroundColor(Color.GRAY)
+        }
 
         return vista!!
     }
@@ -50,10 +56,14 @@ class AdaptadorCustom(var context: Context, items:ArrayList<Fruta>): BaseAdapter
     private class ViewHolder(view: View) {
         var nombre:TextView? = null
         var imagen:ImageView? = null
+        var boton:Button? = null
+        var contendor:LinearLayout? = null
 
         init {
             this.nombre = view.findViewById(R.id.nombre)
             this.imagen = view.findViewById(R.id.imagen)
+            this.boton = view.findViewById(R.id.bBoton)
+            this.contendor = view.findViewById(R.id.llContenedor)
         }
     }
 }
